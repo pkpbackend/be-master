@@ -1,0 +1,449 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        border: 1px solid black;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 12px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+      .title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .left,
+      .right {
+        flex-basis: calc(50% - 10px);
+        margin: 5px;
+        margin-top: 20px;
+      }
+      .full {
+        flex-basis: 100%;
+        margin: 5px;
+        margin-top: 20px;
+      }
+      .box {
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
+      }
+      .box-content {
+        /* background: gainsboro; */
+        color: black;
+        padding: 4px 5px;
+        border-radius: 4px;
+      }
+      .box-info {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>Serah Terima</h1>
+      <h3>
+        <%= st?.serahTerimaType.split(' ') .map((w) => w[0].toUpperCase() +
+        w.substring(1).toLowerCase()) .join(' ') %>
+      </h3>
+    </center>
+    <div class="container">
+      <div class="full">
+        <label class="title">Informasi Umum</label>
+        <table>
+          <tr>
+            <td style="width: 300px">Program</td>
+            <td><%= `${st?.ProProgram?.id} - ${st?.ProProgram?.nama}` %></td>
+          </tr>
+          <tr>
+            <td>Kegiatan</td>
+            <td><%= `${st?.ProKegiatan?.id} - ${st?.ProKegiatan?.nama}` %></td>
+          </tr>
+          <tr>
+            <td>Model Kegiatan</td>
+            <td><%= `${st?.ProType?.id} - ${st?.ProType?.nama}` %></td>
+          </tr>
+          <tr>
+            <td>Jenis Serah Terima</td>
+            <td>
+              <%= st?.serahTerimaType.split(' ') .map((w) => w[0].toUpperCase()
+              + w.substring(1).toLowerCase()) .join(' ') %>
+            </td>
+          </tr>
+          <tr>
+            <td>Penerima Penyediaan</td>
+            <td>
+              <%= `${st?.MasterKelompokPengusul?.id} -
+              ${st?.MasterKelompokPengusul?.nama}` %>
+            </td>
+          </tr>
+          <tr>
+            <td>Penerima Manfaat</td>
+            <td>
+              <%= `${st?.ProTargetGroup?.kode} - ${st?.ProTargetGroup?.tipe}` %>
+            </td>
+          </tr>
+          <tr>
+            <td>Tipe Unit</td>
+            <td><%= st?.tipe_unit %></td>
+          </tr>
+          <tr>
+            <td>Jumlah Unit</td>
+            <td><%= st?.jml_unit %></td>
+          </tr>
+          <tr>
+            <td>Tahun Anggaran Pembangunan</td>
+            <td><%= st?.thn_bang %></td>
+          </tr>
+          <tr>
+            <td>Tahun Selesai Pembangunan</td>
+            <td><%= st?.thn_selesaibang %></td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td><%= st?.myc === '0' ? 'Single Year' : 'Multi Year' %></td>
+          </tr>
+          <tr>
+            <td>Satuan Kerja Pelaksana</td>
+            <td><%= `${st?.ProSatker?.kode} - ${st?.ProSatker?.nama}` %></td>
+          </tr>
+          <tr>
+            <td>Nomor Urut Pendaftaran (NUP)</td>
+            <td><%= st?.nup %></td>
+          </tr>
+          <tr>
+            <td>Kategori Barang</td>
+            <td><%= st?.kategoriBarang %></td>
+          </tr>
+          <tr>
+            <td>Nomor DIPA</td>
+            <td><%= st?.noDipa %></td>
+          </tr>
+          <tr>
+            <td>Tanggal DIPA</td>
+            <td><%= st?.tglDipa %></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Informasi Lokasi</label>
+        <table>
+          <tr>
+            <td style="width: 300px">Provinsi</td>
+            <td><%= st?.Provinsi?.nama %></td>
+          </tr>
+          <tr>
+            <td>Kabupaten/Kota</td>
+            <td><%= st?.City?.nama %></td>
+          </tr>
+          <tr>
+            <td>Kecamatan</td>
+            <td><%= st?.Kecamatan?.nama %></td>
+          </tr>
+          <tr>
+            <td>Kelurahan/Desa</td>
+            <td><%= st?.Desa?.nama %></td>
+          </tr>
+          <tr>
+            <td>Latitude</td>
+            <td><%= st?.latitude %></td>
+          </tr>
+          <tr>
+            <td>Longitude</td>
+            <td><%= st?.longitude %></td>
+          </tr>
+          <tr>
+            <td>Wilayah</td>
+            <td><%= st?.Provinsi?.kodeWilayah %></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Kontrak Fisik</label>
+        <table>
+          <% let n = 0; st?.kontrakFisikBangunanRumah?.forEach((kf) => { %>
+          <tr>
+            <td
+              colspan="4"
+              style="font-weight: bold; text-decoration: underline"
+            >
+              Kontrak Fisik <%= ++n %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nilai Kontrak</td>
+            <td><%= kf.nilaiKontrak %></td>
+            <td>Nilai BMN</td>
+            <td>Rp <%= kf.nilaiBMN ? kf.nilaiBMN : '-' %></td>
+          </tr>
+          <tr>
+            <td>Nomor Kontrak</td>
+            <td colspan="3"><%= kf.nomorKontrak %></td>
+          </tr>
+          <tr>
+            <td>Tanggal Kontrak Pembangunan</td>
+            <td colspan="3">
+              <% if(kf.tanggalKontrakPembangunan) { %> <% const t =
+              kf.tanggalKontrakPembangunan.split('-'); %> <%= t[2] + '-' + t[1]
+              + '-' + t[0] %> <% } %>
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td colspan="3">
+              <%= kf.jenisKontrak == 0 ? 'Single Year' : 'Multi Year' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Kontraktor Pembangunan</td>
+            <td colspan="3"><%= kf.namaKontraktorPembangunan %></td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Kontrak PSU</label>
+        <table>
+          <% n = 0; st?.kontrakPsu?.forEach((kf) => { %>
+          <tr>
+            <td
+              colspan="4"
+              style="font-weight: bold; text-decoration: underline"
+            >
+              Kontrak PSU <%= ++n %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nilai Kontrak</td>
+            <td><%= kf.nilaiKontrak %></td>
+            <td>Nilai BMN</td>
+            <td>Rp <%= kf.nilaiBMN ? kf.nilaiBMN : '-' %></td>
+          </tr>
+          <tr>
+            <td>Nomor Kontrak</td>
+            <td colspan="3"><%= kf.nomorKontrak %></td>
+          </tr>
+          <tr>
+            <td>Tanggal Kontrak Pembangunan</td>
+            <td colspan="3">
+              <% if(kf.tanggalKontrakPembangunan) { %> <% const t =
+              kf.tanggalKontrakPembangunan.split('-'); %> <%= t[2] + '-' + t[1]
+              + '-' + t[0] %> <% } %>
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td colspan="3">
+              <%= kf.jenisKontrak == 0 ? 'Single Year' : 'Multi Year' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Kontraktor Pembangunan</td>
+            <td colspan="3"><%= kf.namaKontraktorPembangunan %></td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Kontrak Mebel</label>
+        <table>
+          <% n = 0; st?.kontrakMebel?.forEach((kf) => { %>
+          <tr>
+            <td
+              colspan="4"
+              style="font-weight: bold; text-decoration: underline"
+            >
+              Kontrak Mebel <%= ++n %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nilai Kontrak</td>
+            <td><%= kf.nilaiKontrak %></td>
+            <td>Nilai BMN</td>
+            <td>Rp <%= kf.nilaiBMN ? kf.nilaiBMN : '-' %></td>
+          </tr>
+          <tr>
+            <td>Nomor Kontrak</td>
+            <td colspan="3"><%= kf.nomorKontrak %></td>
+          </tr>
+          <tr>
+            <td>Tanggal Kontrak Pembangunan</td>
+            <td colspan="3">
+              <% if(kf.tanggalKontrakPembangunan) { %> <% const t =
+              kf.tanggalKontrakPembangunan.split('-'); %> <%= t[2] + '-' + t[1]
+              + '-' + t[0] %> <% } %>
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td colspan="3">
+              <%= kf.jenisKontrak == 0 ? 'Single Year' : 'Multi Year' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Kontraktor Pembangunan</td>
+            <td colspan="3"><%= kf.namaKontraktorPembangunan %></td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Kontrak Perencana</label>
+        <table>
+          <% n = 0; st?.kontrakPerencana?.forEach((kf) => { %>
+          <tr>
+            <td
+              colspan="4"
+              style="font-weight: bold; text-decoration: underline"
+            >
+              Kontrak Perencana <%= ++n %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nilai Kontrak</td>
+            <td><%= kf.nilaiKontrak %></td>
+            <td>Nilai BMN</td>
+            <td>Rp <%= kf.nilaiBMN ? kf.nilaiBMN : '-' %></td>
+          </tr>
+          <tr>
+            <td>Nomor Kontrak</td>
+            <td colspan="3"><%= kf.nomorKontrak %></td>
+          </tr>
+          <tr>
+            <td>Tanggal Kontrak Pembangunan</td>
+            <td colspan="3">
+              <% if(kf.tanggalKontrakPembangunan) { %> <% const t =
+              kf.tanggalKontrakPembangunan.split('-'); %> <%= t[2] + '-' + t[1]
+              + '-' + t[0] %> <% } %>
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td colspan="3">
+              <%= kf.jenisKontrak == 0 ? 'Single Year' : 'Multi Year' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Kontraktor Pembangunan</td>
+            <td colspan="3"><%= kf.namaKontraktorPembangunan %></td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Kontrak Pengawas</label>
+        <table>
+          <% n = 0; st?.kontrakPengawas?.forEach((kf) => { %>
+          <tr>
+            <td
+              colspan="4"
+              style="font-weight: bold; text-decoration: underline"
+            >
+              Kontrak Pengawas <%= ++n %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nilai Kontrak</td>
+            <td><%= kf.nilaiKontrak %></td>
+            <td>Nilai BMN</td>
+            <td>Rp <%= kf.nilaiBMN ? kf.nilaiBMN : '-' %></td>
+          </tr>
+          <tr>
+            <td>Nomor Kontrak</td>
+            <td colspan="3"><%= kf.nomorKontrak %></td>
+          </tr>
+          <tr>
+            <td>Tanggal Kontrak Pembangunan</td>
+            <td colspan="3">
+              <% if(kf.tanggalKontrakPembangunan) { %> <% const t =
+              kf.tanggalKontrakPembangunan.split('-'); %> <%= t[2] + '-' + t[1]
+              + '-' + t[0] %> <% } %>
+            </td>
+          </tr>
+          <tr>
+            <td>Jenis Kontrak</td>
+            <td colspan="3">
+              <%= kf.jenisKontrak == 0 ? 'Single Year' : 'Multi Year' %>
+            </td>
+          </tr>
+          <tr>
+            <td>Nama Kontraktor Pembangunan</td>
+            <td colspan="3"><%= kf.namaKontraktorPembangunan %></td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Nilai Perolehan</label>
+        <table>
+          <tr>
+            <td>Nilai Perolehan</td>
+            <td>Rp <%= st?.tot_biaya ? st?.tot_biaya : '-' %></td>
+          </tr>
+          <tr>
+            <td>Sumber Dana</td>
+            <td><%= st?.sumb_dana %></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="full">
+        <label class="title">Dokumen</label>
+        <table>
+          <tr>
+            <td>#</td>
+            <td>Dokumen</td>
+            <td>Status Rusus</td>
+            <td>Status Setditjen</td>
+            <td>Komentar</td>
+          </tr>
+          <% n = 0; %> <% stMasterDokumen.forEach((d) => { %>
+          <tr>
+            <td><%= ++n %></td>
+            <td><%= d.nama %></td>
+            <td>
+              <% d.activity?.forEach(a => { if (a.role === 'Admin Rusus') { %>
+              <%= a.lengkap ? lengkap[a.lengkap] : '' %> <%} }) %>
+            </td>
+            <td>
+              <% d.activity?.forEach(a => { if (a.role === 'Admin Setditjen') {
+              %> <%= a.lengkap ? lengkap[a.lengkap] : '' %> <%} }) %>
+            </td>
+            <td>
+              <% d.activity?.forEach(a => { %>
+              <div class="box">
+                <div class="box-content">
+                  <div class="box-info"><%= a.timed %></div>
+                  <span><%= a.role %> : <%= a.keterangan %></span>
+                </div>
+              </div>
+              <% }) %>
+            </td>
+          </tr>
+          <% }) %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

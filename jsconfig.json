@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    
+    /* Language and Environment */
+    "lib": ["ES5", "ES6"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    /* Modules */
+    "target": "ES6",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "moduleResolution": "Node",
+    "baseUrl": "./src",
+
+    /* Emit */
+    "outDir": "./dist",
+    "downlevelIteration": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    
+
+    /* Completeness */
+    "skipLibCheck": true,
+
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules"]
+}

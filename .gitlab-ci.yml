@@ -1,0 +1,18 @@
+stages:
+  - build
+
+cache:
+  paths:
+    - node_modules/
+
+build-staging:
+  image: docker:20.10.8
+  stage: build
+  before_script:
+    - docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+  stage: build
+  script:
+    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}/staging:latest .
+    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}/staging:latest
+  only:
+    - /^staging_[0-9]+(?:.[0-9]+)+$/
